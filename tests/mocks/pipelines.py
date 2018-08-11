@@ -3,7 +3,7 @@ import datetime
 import pandas
 import sqlalchemy
 
-from lore.encoders import Unique, Pass, Token, Boolean, Enum, Continuous, OneHot, NestedUnique, NestedNorm
+from lore.encoders import Unique, Pass, Token, Boolean, Enum, Continuous, OneHot, NestedUnique, NestedNorm, Glove
 from lore.transformers import DateTime
 import lore.io
 import lore.pipelines.holdout
@@ -29,6 +29,15 @@ class Xor(lore.pipelines.holdout.Base):
 
     def get_output_encoder(self):
         return Pass('xor')
+
+
+class XorGlove(Xor):
+    def get_encoders(self):
+        return (
+            Unique('a'),
+            Unique('b'),
+            Glove('words')
+        )
 
 
 class XorSingle(Xor):

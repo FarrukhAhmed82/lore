@@ -70,6 +70,17 @@ class TestKeras(unittest.TestCase):
         model.estimator.build()
         assert True
 
+
+class TestKerasGlove(unittest.TestCase):
+    def test_lifecycle(self):
+        model = tests.mocks.models.KerasGlove()
+        model.fit(epochs=1)
+        model.save()
+
+        loaded = tests.mocks.models.KerasGlove.load()
+        self.assertEqual(loaded.fitting, model.fitting)
+
+
 class TestKerasSingle(unittest.TestCase):
     def test_single_encoder_a(self):
         model = tests.mocks.models.KerasSingle(type='tuple')
